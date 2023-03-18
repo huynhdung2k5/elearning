@@ -88,7 +88,7 @@ export default function AccountPopover() {
         }}
       >
         <CustomAvatar
-          src="/assets/images/users/user.png"
+          src={user?.imageUrl || '/assets/images/common/user.png'}
           alt={user?.fullName}
           name={user?.fullName}
         />

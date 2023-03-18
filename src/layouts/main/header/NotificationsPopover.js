@@ -31,11 +31,11 @@ import Scrollbar from '../../../components/scrollbar';
 import { useSnackbar } from '../../../components/snackbar';
 // firebase
 import {
-  deleteDocuments,
-  updateAllDocument,
-  updateDocument,
-  useGetDocument,
-} from '../../../lib/firebase/service';
+  deleteMultiData,
+  updateAllData,
+  updateData,
+  useFetchData,
+} from '../../../api/service/crud-service';
 
 // ----------------------------------------------------------------------
 
@@ -46,7 +46,7 @@ export default function NotificationsPopover() {
 
   const { translate } = useLocales(); // locales
 
-  const notifications = useGetDocument('notifications'); // danh sách thông báo
+  const notifications = useFetchData('notifications'); // danh sách thông báo
 
   const [openConfirm, setOpenConfirm] = useState(false); // state đóng mở confirm
 
@@ -65,7 +65,7 @@ export default function NotificationsPopover() {
   const handleMarkAllAsRead = () => {
     const list = notifications?.map((data) => data.id);
 
-    updateAllDocument('notifications', list, {
+    updateAllData('notifications', list, {
       read: true,
     });
 
@@ -75,7 +75,7 @@ export default function NotificationsPopover() {
   const handleDeleteNotifications = () => {
     const list = notifications?.map((data) => data.id);
 
-    deleteDocuments('notifications', list);
+    deleteMultiData('notifications', list);
     setOpenConfirm(false);
     handleClosePopover();
 
@@ -180,7 +180,7 @@ NotificationItem.propTypes = {
 
 function NotificationItem({ notification }) {
   const handleRead = (id) => {
-    updateDocument('notifications', id, {
+    updateData('notifications', id, {
       read: true,
     });
   };

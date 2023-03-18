@@ -13,8 +13,6 @@ import Iconify from '../../../components/iconify';
 import Label from '../../../components/label';
 import MenuPopover from '../../../components/menu-popover';
 import Scrollbar from '../../../components/scrollbar';
-// firebase
-import { useGetDocument } from '../../../lib/firebase/service';
 // locales
 import { useLocales } from '../../../locales';
 
@@ -26,8 +24,6 @@ export default function ContactsPopover() {
   const [openPopover, setOpenPopover] = useState(null); // state đóng mở popover
 
   const { translate } = useLocales(); // locales
-
-  const staff = useGetDocument('staff');
 
   const handleOpenPopover = (event) => {
     setOpenPopover(event.currentTarget);
@@ -56,12 +52,11 @@ export default function ContactsPopover() {
 
       <MenuPopover open={openPopover} onClose={handleClosePopover} sx={{ width: 320 }}>
         <Typography variant="h6" sx={{ p: 1.5 }}>
-          {translate('contact.contact staff')}{' '}
-          <Typography component="span">({staff.length})</Typography>
+          {translate('contact.contact staff')} <Typography component="span">({1})</Typography>
         </Typography>
 
         <Scrollbar sx={{ height: ITEM_HEIGHT * 6 }}>
-          {staff?.map((contact) => (
+          {/* {staff?.map((contact) => (
             <MenuItem key={contact.id} sx={{ height: ITEM_HEIGHT }}>
               <ListItemAvatar>
                 <CustomAvatar src={contact.photoURL || '/assets/images/staff.png'} />
@@ -84,7 +79,7 @@ export default function ContactsPopover() {
                 </Label>
               </Stack>
             </MenuItem>
-          ))}
+          ))} */}
         </Scrollbar>
       </MenuPopover>
     </>

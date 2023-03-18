@@ -23,9 +23,9 @@ NavItem.propTypes = {
 };
 
 export default function NavItem({ item, depth, open, active, isExternalLink, ...other }) {
-  const { translate } = useLocales();
+  const { translate } = useLocales(); // locales
 
-  const { title, path, icon, info, children, disabled, caption, roles } = item;
+  const { title, path, icon, info, children, disabled, caption, permission, permissions } = item;
 
   const subItem = depth !== 1;
 
@@ -97,5 +97,9 @@ export default function NavItem({ item, depth, open, active, isExternalLink, ...
     );
   };
 
-  return <RoleBasedGuard roles={roles}> {renderItem()} </RoleBasedGuard>;
+  return (
+    <RoleBasedGuard permission={permission} permissions={permissions}>
+      {renderItem()}
+    </RoleBasedGuard>
+  );
 }

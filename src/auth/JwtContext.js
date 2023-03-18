@@ -1,9 +1,9 @@
 // proptype
 import PropTypes from 'prop-types';
 // react
-import { createContext, useEffect, useReducer, useCallback, useMemo } from 'react';
+import { createContext, useCallback, useEffect, useMemo, useReducer } from 'react';
 // api endpoint
-import { authEndpoint } from '../api/endpoint/endpoint';
+import { usersEndpoint } from '../api/modules/users.api';
 // utils
 import axios from '../utils/axios';
 import localStorageAvailable from '../utils/localStorageAvailable';
@@ -79,7 +79,7 @@ export function AuthProvider({ children }) {
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 
-        const response = await axios.get(authEndpoint.getCurrentUser);
+        const response = await axios.get(usersEndpoint.getCurrentUser);
 
         const { user } = response.data;
 
@@ -117,7 +117,7 @@ export function AuthProvider({ children }) {
 
   // LOGIN
   const login = useCallback(async (username, password) => {
-    const response = await axios.post(authEndpoint.login, {
+    const response = await axios.post(usersEndpoint.login, {
       username,
       password,
     });

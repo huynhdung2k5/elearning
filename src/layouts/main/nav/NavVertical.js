@@ -15,10 +15,10 @@ import { NAV } from '../../../config-global';
 import Logo from '../../../components/logo';
 import Scrollbar from '../../../components/scrollbar';
 import { NavSectionVertical } from '../../../components/nav-section';
-//
+// child components
 import navConfig from './config-navigation';
-// import NavDocs from './NavDocs';
-// import NavAccount from './NavAccount';
+import NavDocs from './NavDocs';
+import NavAccount from './NavAccount';
 import NavToggleButton from './NavToggleButton';
 
 // ----------------------------------------------------------------------
@@ -60,14 +60,14 @@ export default function NavVertical({ openNav, onCloseNav }) {
       >
         <Logo src="/logo/logo_full.png" />
 
-        {/* <NavAccount /> */}
+        <NavAccount />
       </Stack>
 
       <NavSectionVertical data={navConfig} />
 
       <Box sx={{ flexGrow: 1 }} />
 
-      {/* <NavDocs /> */}
+      <NavDocs />
     </Scrollbar>
   );
 

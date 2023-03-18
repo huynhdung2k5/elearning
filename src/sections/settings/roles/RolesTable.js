@@ -9,20 +9,16 @@ import { useState } from 'react';
 import {
   Button,
   Divider,
-  ListItemAvatar,
   ListItemText,
   MenuItem,
-  Stack,
   TableCell,
   Tooltip,
   Typography,
 } from '@mui/material';
 // components
-import Image from '../../../components/image';
 import MenuPopover from '../../../components/menu-popover';
 // utils
 import { fDate } from '../../../utils/formatTime';
-import { LESSON_BRANCH } from '../../../utils/constants';
 // components global
 import Scrollbar from '../../../components/scrollbar/Scrollbar';
 import DataTable from '../../@global/data-table/DataTable';
@@ -30,10 +26,9 @@ import DataTable from '../../@global/data-table/DataTable';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Tên môn học', align: 'left' },
-  { id: 'description', label: 'Mô tả môn học', align: 'center' },
-  { id: 'teachers', label: 'Giáo viên phụ trách', align: 'center' },
-  { id: 'classes', label: 'Lớp được phân bố', align: 'center' },
+  { id: 'name', label: 'Tên quyền', align: 'left' },
+  { id: 'description', label: 'Mô tả', align: 'center' },
+  { id: 'permissions', label: 'Tính năng khả dụng', align: 'center' },
   { id: 'createdBy', label: 'Tạo bởi', align: 'center' },
   { id: 'updatedBy', label: 'Cập nhật bởi', align: 'center' },
   { id: 'createdAt', label: 'Ngày tạo', align: 'center' },
@@ -45,29 +40,22 @@ const ITEM_HEIGHT = 64;
 
 // ----------------------------------------------------------------------
 
-SubjectTable.propTypes = {
+RolesTable.propTypes = {
   products: PropTypes.any,
+  options: PropTypes.array,
 }; // proptype
 
-export default function SubjectTable({ products }) {
+export default function RolesTable({ products, options }) {
   const [openTeachersPopover, setOpenTeachersPopover] = useState(null);
-  const [openStudentsPopover, setOpenStudentsPopover] = useState(null);
+  const [permissions, setPermissions] = useState([]);
 
   const rowData = (row) => {
     return (
       <>
         <TableCell>
-          <Stack spacing={1} direction="row" alignItems="center">
-            <Image
-              visibleByDefault
-              alt={row?.name}
-              src={row?.imageUrl || '/assets/images/common/subject.png'}
-              sx={{ borderRadius: 999, width: 36, height: 36 }}
-            />
-
-            <Typography variant="subtitle2">{row?.name}</Typography>
-          </Stack>
+          <Typography variant="subtitle2">{row?.name}</Typography>
         </TableCell>
+
         <Tooltip title={row?.description}>
           <TableCell
             align="center"
@@ -77,17 +65,21 @@ export default function SubjectTable({ products }) {
               textOverflow: 'ellipsis',
             }}
           >
-            {row?.description}
+            {row?.description || 'Không'}
           </TableCell>
         </Tooltip>
 
         <TableCell align="center">
           <Button
+            variant="contained"
             size="small"
             color="inherit"
-            onClick={(event) => setOpenTeachersPopover(event.currentTarget)}
+            onClick={(event) => {
+              setPermissions(row?.permissions);
+              setOpenTeachersPopover(event.currentTarget);
+            }}
           >
-            Danh sách giáo viên
+            Danh sách tính năng
           </Button>
 
           <MenuPopover
@@ -98,64 +90,16 @@ export default function SubjectTable({ products }) {
           >
             <Scrollbar sx={{ height: ITEM_HEIGHT * 6 }}>
               <Typography variant="subtitle1" p={1}>
-                Giáo viên phụ trách
+                Danh sách tính năng
               </Typography>
 
               <Divider sx={{ borderStyle: 'dashed' }} />
 
-              {row?.teachers?.map((teacher, index) => (
-                <MenuItem key={index} sx={{ height: ITEM_HEIGHT }}>
-                  <ListItemAvatar>
-                    <Image
-                      visibleByDefault
-                      alt={teacher.name}
-                      src={teacher.photoURL}
-                      sx={{ borderRadius: 999, width: 32, height: 32 }}
-                    />
-                  </ListItemAvatar>
-
-                  <ListItemText
-                    primary={teacher.name}
-                    secondary={teacher.name}
-                    primaryTypographyProps={{ typography: 'subtitle2', sx: { mb: 0.25 } }}
-                    secondaryTypographyProps={{ typography: 'caption' }}
-                  />
-                </MenuItem>
-              ))}
-            </Scrollbar>
-          </MenuPopover>
-        </TableCell>
-
-        <TableCell align="center">
-          <Button
-            size="small"
-            color="inherit"
-            onClick={(event) => setOpenStudentsPopover(event.currentTarget)}
-          >
-            Danh sách lớp
-          </Button>
-
-          <MenuPopover
-            open={openStudentsPopover}
-            onClose={() => setOpenStudentsPopover(null)}
-            arrow="left-top"
-            sx={{ width: ITEM_HEIGHT * 5, boxShadow: 1 }}
-          >
-            <Scrollbar sx={{ height: ITEM_HEIGHT * 6 }}>
-              <Typography variant="subtitle1" p={1}>
-                Danh sách lớp phân bố
-              </Typography>
-
-              <Divider sx={{ borderStyle: 'dashed' }} />
-
-              {row?.classes?.map((item, index) => (
+              {permissions.map((permission, index) => (
                 <MenuItem key={index} sx={{ height: ITEM_HEIGHT }}>
                   <ListItemText
-                    primary={
-                      item.grade.name +
-                      ` ( ${item.grade.classes.length} lớp, ${item.grade.students} học sinh )`
-                    }
-                    secondary={item.grade.classes.map((item) => item + ' ')}
+                    primary={permission.description}
+                    secondary={permission.name}
                     primaryTypographyProps={{ typography: 'subtitle2', sx: { mb: 0.25 } }}
                     secondaryTypographyProps={{ typography: 'caption' }}
                   />
@@ -181,8 +125,10 @@ export default function SubjectTable({ products }) {
       <DataTable
         tableHead={TABLE_HEAD}
         products={products}
-        options={LESSON_BRANCH}
-        collection="subjects"
+        options={options}
+        collection="roles"
+        filterLabel="Quyền truy cập"
+        valueFilter="name"
         rowTableData={rowData}
       />
     </>

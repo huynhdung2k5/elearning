@@ -9,8 +9,8 @@ import {
   FormControl,
   FormHelperText,
   FormControlLabel,
+  Typography,
 } from '@mui/material';
-import { useState } from 'react';
 
 // ----------------------------------------------------------------------
 
@@ -52,7 +52,6 @@ RHFMultiCheckbox.propTypes = {
 
 export function RHFMultiCheckbox({ row, name, label, options, spacing, helperText, ...other }) {
   const { control } = useFormContext();
-  const [checkAll, setCheckAll] = useState(false);
 
   const getSelected = (selectedItems, item) =>
     selectedItems.includes(item)
@@ -89,21 +88,23 @@ export function RHFMultiCheckbox({ row, name, label, options, spacing, helperTex
               },
             }}
           >
-            <FormControlLabel
-              control={<Checkbox onChange={() => setCheckAll(!checkAll)} />}
-              label="CHỌN TẤT CẢ"
-              {...other}
-            />
             {options.map((option) => (
               <FormControlLabel
                 key={option.value}
                 control={
                   <Checkbox
-                    checked={checkAll || field.value.includes(option.value)}
+                    checked={field.value.includes(option.value)}
                     onChange={() => field.onChange(getSelected(field.value, option.value))}
                   />
                 }
-                label={option.label}
+                label={
+                  <Typography
+                    variant="subtitle2"
+                    color={field.value.includes(option.value) && 'secondary.main'}
+                  >
+                    {option.label}
+                  </Typography>
+                }
                 {...other}
               />
             ))}

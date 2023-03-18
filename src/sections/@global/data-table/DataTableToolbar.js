@@ -44,15 +44,12 @@ export default function DataTableToolbar({
   onResetFilter,
   onFilterStatus,
 }) {
-  const checkCollectionName = {
-    notifications: true,
-    bills: true,
-    category: true,
-    voucher: true,
+  const allowFilter = {
+    subjects: true,
   };
   return (
     <Stack
-      spacing={checkCollectionName[collection] ? 0 : 2}
+      spacing={allowFilter[collection] ? 0 : 2}
       alignItems="center"
       direction={{
         xs: 'column',
@@ -63,7 +60,7 @@ export default function DataTableToolbar({
       <FormControl
         sx={{
           width: { xs: 1, md: 240 },
-          display: checkCollectionName[collection] ? 'none' : 'flex',
+          display: allowFilter[collection] ? 'none' : 'flex',
         }}
       >
         <InputLabel sx={{ '&.Mui-focused': { color: 'text.primary' } }}>{filterLabel}</InputLabel>

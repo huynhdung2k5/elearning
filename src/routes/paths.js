@@ -27,14 +27,14 @@ export const PATH_ROOTS = {
   general: {
     overview: path(ROOTS, '/general/overview'),
   },
-  subject: {
-    root: path(ROOTS, '/management/subject'),
-    list: path(ROOTS, '/management/subject/list'),
-    update: (id) => path(ROOTS, `/management/subject/update/${id}`),
-    demoUpdate: path(ROOTS, '/management/subject/update/demo'),
-    create: path(ROOTS, '/management/subject/create'),
-    teacherAllocation: path(ROOTS, '/management/subject/teacher-allocation'),
-    classAllocation: path(ROOTS, '/management/subject/class-allocation'),
+  subjects: {
+    root: path(ROOTS, '/management/subjects'),
+    list: path(ROOTS, '/management/subjects/list'),
+    update: (id) => path(ROOTS, `/management/subjects/update/${id}`),
+    demoUpdate: path(ROOTS, '/management/subjects/update/demo'),
+    create: path(ROOTS, '/management/subjects/create'),
+    teacherAllocation: path(ROOTS, '/management/subjects/teacher-allocation'),
+    classAllocation: path(ROOTS, '/management/subjects/class-allocation'),
   },
   class: {
     root: path(ROOTS, '/management/class'),
@@ -72,10 +72,10 @@ export const PATH_ROOTS = {
     demoUpdate: path(ROOTS, '/management/test/update/demo'),
     create: path(ROOTS, '/management/test/create'),
   },
-  studying: {
-    root: path(ROOTS, '/management/studying'),
-    list: path(ROOTS, '/management/studying/list'),
-    all: path(ROOTS, '/management/studying/all'),
+  learning: {
+    root: path(ROOTS, '/management/learning'),
+    list: path(ROOTS, '/management/learning/list'),
+    all: path(ROOTS, '/management/learning/all'),
   },
   testing: {
     root: path(ROOTS, '/management/testing'),
@@ -95,12 +95,12 @@ export const PATH_ROOTS = {
   profile: {
     root: path(ROOTS, '/settings/profile'),
   },
-  permission: {
-    root: path(ROOTS, '/settings/permission'),
-    list: path(ROOTS, '/settings/permission/list'),
-    update: (id) => path(ROOTS, `/settings/permission/update/${id}`),
-    demoUpdate: path(ROOTS, '/settings/permission/update/demo'),
-    create: path(ROOTS, '/settings/permission/create'),
-    change: path(ROOTS, '/settings/permission/change'),
+  roles: {
+    root: path(ROOTS, '/settings/roles'),
+    list: path(ROOTS, '/settings/roles/list'),
+    update: (id) => path(ROOTS, `/settings/roles/update/${id}`),
+    demoUpdate: path(ROOTS, '/settings/roles/update/demo'),
+    create: path(ROOTS, '/settings/roles/create'),
+    add: path(ROOTS, '/settings/roles/add'),
   },
 }; // các routes của path gốc

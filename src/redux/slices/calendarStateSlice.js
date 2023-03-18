@@ -3,8 +3,8 @@
 // ----------------------------------------------------------------------
 // redux
 import { createSlice } from '@reduxjs/toolkit';
-// firebase
-import { addDocument, deleteDocument, updateDocument } from '../../lib/firebase/service';
+// api
+import { addData, deleteData, updateData } from '../../api/service/crud-service';
 
 // ----------------------------------------------------------------------
 
@@ -108,7 +108,7 @@ export function createEvent(newEvent) {
   return async (dispatch) => {
     dispatch(calendarStateSlice.actions.startLoading());
     try {
-      await addDocument('calendar', {
+      await addData('calendar', {
         ...newEvent,
       });
       dispatch(calendarStateSlice.actions.createEventSuccess(newEvent));
@@ -124,7 +124,7 @@ export function updateEvent(eventId, event) {
   return async (dispatch) => {
     dispatch(calendarStateSlice.actions.startLoading());
     try {
-      await updateDocument('calendar', eventId, {
+      await updateData('calendar', eventId, {
         ...event,
       });
       dispatch(calendarStateSlice.actions.updateEventSuccess(event));
@@ -140,7 +140,7 @@ export function deleteEvent(eventId) {
   return async (dispatch) => {
     dispatch(calendarStateSlice.actions.startLoading());
     try {
-      await deleteDocument('calendar', eventId);
+      await deleteData('calendar', eventId);
       dispatch(calendarStateSlice.actions.deleteEventSuccess(eventId));
     } catch (error) {
       dispatch(calendarStateSlice.actions.hasError(error));

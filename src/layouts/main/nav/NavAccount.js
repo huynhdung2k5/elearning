@@ -34,21 +34,18 @@ export default function NavAccount() {
     <Link component={NextLink} href="/" underline="none" color="inherit">
       <StyledRoot>
         <CustomAvatar
-          src={
-            user?.photoURL ||
-            'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg'
-          }
-          alt={user?.displayName}
-          name={user?.displayName}
+          src={user?.imageUrl || '/assets/images/common/user.png'}
+          alt={user?.fullName}
+          name={user?.fullName}
         />
 
         <Box sx={{ ml: 2, minWidth: 0 }}>
           <Typography variant="subtitle2" noWrap>
-            {'Trần Minh Luân' || user?.displayName}
+            {user?.profile.fullName}
           </Typography>
 
           <Typography variant="body2" noWrap sx={{ color: 'text.secondary' }}>
-            {'Admin' || user?.role}
+            {user?.role.name}
           </Typography>
         </Box>
       </StyledRoot>

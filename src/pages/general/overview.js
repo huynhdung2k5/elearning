@@ -17,7 +17,7 @@ import MainLayout from '../../layouts/main';
 // hook
 import { useSettingsContext } from '../../components/settings';
 // utils
-import { useGetDocument } from '../../lib/firebase/service';
+import { useFetchData } from '../../api/service/crud-service';
 // sections
 import DataFilter from '../../sections/@global/data-filter/DataFilter';
 import WidgetSummary from '../../sections/general/overview/WidgetSummary';

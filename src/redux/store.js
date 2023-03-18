@@ -7,7 +7,7 @@ import { useDispatch as useAppDispatch, useSelector as useAppSelector } from 're
 // state slice
 import dishStateSlice from './slices/dishStateSlice';
 import calendarStateSlice from './slices/calendarStateSlice';
-import dataApiStateSlice from './slices/dataApiStateSlice';
+import kanbanStateSlice from './slices/kanbanStateSlice';
 
 // ----------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ const store = configureStore({
   reducer: {
     dishState: dishStateSlice,
     calendarState: calendarStateSlice,
-    dataApiState: dataApiStateSlice,
+    kanbanState: kanbanStateSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

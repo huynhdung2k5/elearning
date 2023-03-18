@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 // react next
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+// lodash
+import _ from 'lodash';
 // mui
 import { Button, Card, IconButton, Table, TableBody, TableContainer, Tooltip } from '@mui/material';
 // components
@@ -32,8 +34,8 @@ import DataTableRow from './DataTableRow';
 import DataTableToolbar from './DataTableToolbar';
 // utils
 import applyFilter from '../../../utils/applyFilter';
-// firebase
-import { deleteDocument, deleteDocuments } from '../../../lib/firebase/service';
+// api
+import { deleteData, deleteMultiData } from '../../../api/service/crud-service';
 
 // ----------------------------------------------------------------------
 
@@ -132,9 +134,9 @@ export default function DataTable({
   }; // sự kiện chọn danh mục
 
   const handleDeleteRow = async (id) => {
-    await deleteDocument(collection, id);
+    await deleteData(collection, id);
     enqueueSnackbar('Đã xóa thành công !');
-    setSelected([]);
+    setTableData(_.remove(tableData, (data) => data.id !== id));
 
     if (page > 0) {
       if (dataInPage.length < 2) {
@@ -146,10 +148,10 @@ export default function DataTable({
   }; // handle xóa một hàng
 
   const handleDeleteRows = async (selectedRows) => {
-    await deleteDocuments(collection, selectedRows);
+    await deleteMultiData(collection, selectedRows);
     enqueueSnackbar('Đã xóa thành công !');
     setSelected([]);
-    setTableData([]);
+    setTableData(_.reject(tableData, (data) => _.includes(selectedRows, data.id)));
 
     if (page > 0) {
       if (selectedRows.length === dataInPage.length) {

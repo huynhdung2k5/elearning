@@ -137,7 +137,7 @@ export const subjects = Array.from({ length: 12 }).map(() => ({
 export const permissions = Array.from({ length: 20 }).map(() => ({
   id: faker.datatype.uuid(),
   name: faker.name.fullName(),
-  role: faker.name.firstName(),
+  role: _.sampleSize(['Quản lý', 'Giáo viên', 'Học sinh'], 1),
   description: faker.commerce.productDescription(),
   permissions: Array.from({ length: 20 }).map(() => ({
     id: faker.datatype.uuid(),
